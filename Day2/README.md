@@ -43,3 +43,8 @@ There are 3 methods
 1. sh firstscript.sh or bash firstscript.sh
 2. ./firstscript.sh -- execute permission --> chmod +x firstscript.sh
 3. source firstscript.sh or .firstscript.sh
+
+---
+
+## File System
+
