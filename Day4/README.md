@@ -191,7 +191,26 @@ Yum is the primary package management tool for redhat
 Yum perform the dependency resolutions when installing, updating, removing the packages
 Yum can also manager packages from installed repositories in the system or from .rpm packages.
 
+_upgrade_ : Will the delete the Old package and install the new one
+https:2.2 ---> httpd:2.4
+
+Update : Keep the old package, so that we can do rollback
+yum update httpd
+
+2.2 --- 2.4
+
 ```bash
+
+$ yum update httpd # To the Recent version
+$ yum remove httpd # To remove the package
+$ yum upgrade httpd # After install . It will be a specific version
+$ httpd -v
+$ sudo yum upgrade httpd
+$ sudo yum history
+$ rpm -qa # It will show all the RPM (qa = Query About)
+$ rpm -qa | grep -i httpd # It will show all the httpd package are there (qa = Query About)
+$ rpm -qi <full package name> # (qi = Query Information)
 
 
 ```
+
