@@ -147,3 +147,178 @@ $ hostname -I
 
 wget = Download file
 curl = Download // CheckSum
+
+---
+
+# Scripting
+
+if condition, it else, if else
+
+Syntax
+
+```bash
+
+if [test-condition]
+then
+    -----
+    -----
+else
+    -----
+    -----
+fi
+
+# -------------------
+
+if [test-condition]; then
+-----
+-----
+else
+-----
+-----
+fi
+
+# -------------------
+
+if [[-e "Badhon" ]]
+then
+    echo "The File Exists"
+else
+    echo "The file does not exits"
+fi
+
+# --------------------
+
+# [] ===> "Badhon"
+
+if test -e "Badhon"
+then
+    echo "The File Exists"
+else
+    echo "The file does not exits"
+fi
+```
+
+---
+
+Index.sh
+
+```bash
+cat > file1.sh << 'EOF'
+
+#!/bin/bash
+
+# Author Name: Badhon Biswas
+# Date : 14/10/2026
+
+echo "Enter 1st Value"
+read a
+
+echo "Enter 2nd Value"
+read b
+
+echo "Enter the equal value"
+read c
+
+if test $(($a + $b)) -eq $c
+then
+    echo "The Sum of the value is Equal "
+else
+    echo "They are not equal"
+fi
+EOF
+
+```
+
+---
+
+**_Leaf Year Check_**
+
+```bash
+cat > leap_year.sh << 'EOF'
+#!/bin/bash
+
+echo "LEAP YEAR SHELL SCRIPTING"
+echo "ENTER the year"
+read year_check
+
+if [ `expr $year_check % 4` -eq 0 ]
+then
+	echo "$year_check is a leap year"
+else
+	echo "$year_check is not a leap year"
+fi
+EOF
+
+```
+
+---
+
+**_Multi Condition_**
+
+```bash
+
+# $1 is equal to position parameter
+# We can pass max 18 parameter
+# sh multi_condition.sh {1...18}
+
+cat > multi_condition.sh << 'EOF'
+#!/bin/bash
+
+# echo "Enter A Number"
+a=$1
+
+if [ $a -lt 20 ]; then
+	echo "This number is less than 20"
+elif [ $number -ge 20 ] && [ $number -lt 40 ]; then
+	echo "The number is between 20 and 40"
+elif [ $number -ge 40 ] && [ $number -lt 60 ]; then
+	echo "The number is between 40 and 60"
+else
+	echo "The number is greater then or equal 60"
+fi
+EOF
+
+```
+
+```bash
+$ sh multi_condition.sh 30
+```
+
+---
+
+**_Install Git_**
+
+```bash
+#!/bin/bash
+
+# Getting the user ID
+
+userID=$ (id -u)
+# userID=`id -u`
+
+# Checking the user is root or not
+
+if [ $userID -eq 0 ]
+then 
+	echo "The user has root access"
+else 
+	echo "You are not root users, plz run this script being root user"
+	exit 1
+fi 
+
+echo "====================================="
+echo "		  Install Git Package		   "
+echo "====================================="
+echo "\n\n"
+
+yum install git -y
+
+# Checking the exit status
+
+if [ $? -eq 0 ]
+then
+	echo "The Git package has successfully installed"
+else 
+	echo "The git package has not installed"
+fi 
+```
