@@ -69,11 +69,23 @@ Name="Shell Scripting"
 NewName=$Name
 NewName=${Name}
 
+Check The OS
+
+```bash
+$ cat /etc/os-release
+```
+
 ---
 
 Simple shell script to practice with variables
 Q1. Print Docker status and Docker version
 
 ```bash
+#!/bin/bash
 
+dockerStatus=$(systemctl status docker | awk '/Active/ ${print $3}' | tr -d "[()]")
+dockerVersion=$(docker -v | awk '/version/ {print $3}' | tr -d ",")
+
+echo "The Docker status is: $dockerStatus"
+echo "The Docker version is: $dockerVersion"
 ```
