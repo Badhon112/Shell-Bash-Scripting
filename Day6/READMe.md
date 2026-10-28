@@ -89,3 +89,108 @@ dockerVersion=$(docker -v | awk '/version/ {print $3}' | tr -d ",")
 echo "The Docker status is: $dockerStatus"
 echo "The Docker version is: $dockerVersion"
 ```
+
+---
+
+## Basic Operations on Strings
+
+Define a string variables
+
+x=shell
+y="shell scripting"
+cmdout=$(date)
+
+```bash
+$ N="Badhon Biswas"
+
+# Displaying the string variable values
+$ echo $N
+$ echo ${N}
+$ echo "${N}"
+
+# Finding the length of the string
+$ echo ${#N} # Print the length of that Variable
+
+# Concatenation of strings
+x="Shell"
+y="Scripting"
+xy=$x$y
+echo $xy
+
+
+```
+
+### Converting Strings into lower/upper cases
+
+x=shell
+Uc=${x^^} --> Will change the value of x from lower to upper
+
+y=SCRIPTING
+Lc=${y,,} --> Will change the value of y from upper to lower case
+
+### Replacing the part of the string using variable
+
+sed command
+
+---
+
+String Operations on paths (command - realpath, basename and dirname)
+
+realpath - converts a each filename argument to an absolute pathname, but is doesn't validate the path
+
+```bash
+$ touch file.txt
+$ realpath file.txt # It will show the real path of that location
+
+$ basename file.txt #
+```
+
+---
+
+## Arithmetic Operators
+
+Shell Scripting variables are by default treated as strings, not numbers hence this adds some complexity to doing math operation in scripts.
+
+Different ways to perform arithmetic operations:
+
+1. declare
+2. expr
+3. let
+4. (()) (For integers)
+5. using bc (For integers and float numbers)
+
+Example:
+
+```bash
+$ x=10
+$ y=20
+
+# Addition of Sum
+$ ((sum=x+y))
+$ echo $sum
+
+# Subtraction
+$ ((sub=y-x))
+$ echo $sub
+
+# Multiplication
+$ ((mul=x*y))
+$ echo $mul
+
+# Divider
+$ ((div=y/x))
+$ echo $div
+
+# Reminder
+$ (((rem=x%y)))
+$ echo $rem
+
+$ ((x++))
+$ echo $x
+
+$ ((x--))
+
+# bc calculator
+$ bc <<<"$x+$y"
+
+```
