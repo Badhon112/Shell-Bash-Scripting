@@ -114,8 +114,19 @@ myassoarray[version]=4.3
 Basic for loop:
 
 for variable in list_of_values
-do 
-    command1
-    command2
+do
+command1
+command2
 done
 
+---
+
+Shell script to install vim httpd, wget, nginx packages
+whenever you are installing the packages, you should be root user or sudo user
+yum command - to install the package
+centos
+
+---
+
+ubuntu
+apt-get install --> command
