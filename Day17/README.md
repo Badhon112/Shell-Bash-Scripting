@@ -55,8 +55,33 @@ $ sudo systemctl start crond
 $ crontab -e
 
 # to list the jobs
-$ crontab -l 
+$ crontab -l
 
 # to remove all the jobs
-$ crontab -r 
+$ crontab -r
+```
+
+---
+
+**User Account**
+
+create_user.sh Badhon "IT Admin"
+
+create_user.sh <user-name> <comments>
+
+Requirements:
+
+1. Script Should be executed with root user or sudo user else exit with status 1 and error message
+2. The Script will take 1st argument as user and rest will be treated as comment
+3. Auto generate password for the user
+4. Upon successful execution of the script, the script should display the following
+   1. Username: Badhon
+   2. password : <Random Password>
+   3. HostName : <name of the server>
+
+
+```bash
+#!/bin/bash
+
+
 ```
