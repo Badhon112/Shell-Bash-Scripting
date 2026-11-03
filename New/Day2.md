@@ -47,7 +47,7 @@ $ id badhon118
 
 ```
 
-![User Information](./Day2UserInformation.png)
+![User Information](./Images/Day2UserInformation.png)
 
 ---
 
@@ -71,7 +71,7 @@ $ passwd # Setting up a new password through the user
 $ sudo cat  /etc/shadow
 ```
 
-![ETC Shadow Format](./Day2ETCShadow.png)
+![ETC Shadow Format](./Images/Day2ETCShadow.png)
 
 ---
 
@@ -135,13 +135,14 @@ $ getent passwd badhonbiswas
 
 
 ```
+
 ## (18) Editing users pt.3
 
 ```bash
-# Add a comment in the 
+# Add a comment in the
 # Commit : A commit is a permanent, saved snapshot of the file at a specific point of time.
 
-# Comment : A comment is a note that is used to write inside the file.  
+# Comment : A comment is a note that is used to write inside the file.
 $ sudo usermod -c "This is a comment" badhonbiswas
 
 # Get the user information from /etc/passwd
@@ -181,7 +182,7 @@ $ sudo chage --lastday 0 <userId>
 ## (19) Disable-Remove Users
 
 ```bash
-# To lock a userID 
+# To lock a userID
 $ sudo usermod -L <UserID>
 $ sudo passwd -l <UserID>
 
@@ -208,7 +209,7 @@ $ user chage -E0 <User_Id>
 # Interactive mode command:
 
 $ chage -l -1 -m 0 -M 99999 -E -1 <UserId>
-# or 
+# or
 $ sudo chage <UserId>
 
 # To delete a user
