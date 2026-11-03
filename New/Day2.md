@@ -207,11 +207,14 @@ $ user chage -E0 <User_Id>
 # Account Expiration Date to -1
 # Interactive mode command:
 
-$ chage -l -1 -m 0 -M 99999 -E -1 <userId>
+$ chage -l -1 -m 0 -M 99999 -E -1 <UserId>
 # or 
-$ sudo chage <userId>
+$ sudo chage <UserId>
 
 # To delete a user
 $ sudo userdel <User_ID>
+
+# To delete everything to that particular User
+$ sudo deluser --remove-home <UserId>
 
 ```
