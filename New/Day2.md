@@ -92,6 +92,7 @@ $ sudo chage -m 14 badhon
 $ sudo chage -E "2026-12-12" badhon
 
 # Check the single record for the user
+# Get Entry | Get DataBase Entry 
 $ getent passwd badhon
 
 # Update the information in passwd file and update user permission
@@ -217,5 +218,10 @@ $ sudo userdel <User_ID>
 
 # To delete everything to that particular User
 $ sudo deluser --remove-home <UserId>
+
+```
+## (20) Add Root Privileges
+
+```bash
 
 ```
