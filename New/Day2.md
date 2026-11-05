@@ -47,7 +47,7 @@ $ id badhon118
 
 ```
 
-![User Information](./Images/Day2UserInformation.png)
+![User Information](./Images/Day2/Day2UserInformation.png)
 
 ---
 
@@ -71,7 +71,7 @@ $ passwd # Setting up a new password through the user
 $ sudo cat  /etc/shadow
 ```
 
-![ETC Shadow Format](./Images/Day2ETCShadow.png)
+![ETC Shadow Format](./Images/Day2/Day2ETCShadow.png)
 
 ---
 
