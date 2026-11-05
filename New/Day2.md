@@ -224,4 +224,46 @@ $ sudo deluser --remove-home <UserId>
 
 ```bash
 
+# First create a user 
+$ sudo useradd badhon
+$ sudo passwd 
+
+# Login to a privileged user
+
+$ su ec2-user 
+$ sudo visudo
+
+## User This Line
+# Allows people in group wheel to run all commands
+
+-> badhon ALL=(ALL)        ALL
+
+# Now check the user sudo permission
+$ su badhon
+$ sudo ls -alh /root
+
+
+# Other way is 
+# Switch to Privileged user
+$ su badhon 
+
+# Add a user
+$ sudo useradd biswas 
+
+# Add a passwd
+$ sudo passwd biswas
+
+# check the group all permission in case az linux 2 its wheel
+# To check the privilege user group
+
+# Allows people in group wheel to run all commands
+# %wheel  ALL=(ALL)       ALL
+$ sudo visudo
+
+
+$ sudo usermod -aG wheel biswas
+
+# Now the biswas user is privilege user
+$ su biswas
+$ sudo ls -alh /home/badhon
 ```
