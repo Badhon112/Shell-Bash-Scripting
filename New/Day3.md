@@ -39,16 +39,29 @@ $ chmod 777 file1.txt
 # No Privilege has a value of 0
 ```
 
-## (22) File OwnersShip
+## (22) File OwnersShip (chgrp)
+
 <!-- Permissions & Groups: Understanding file permissions, ownership, groups, ACLs, and file attributes -->
 
+_What is chgrp?_
+Well 'chgrp' stands for change group, and its a command in Linux that allows you to modify the group ownership of files and directories. It as important tool for managing permissions and ensuring the right users have access to the files
+
 ```bash
+
+# Syntax:
+# chgrp [option].. [GROUP_NAME] [Directory/FILE_NAME]....
+
+# Change the Group OwnerShip ec2-user
+$ sudo touch file1.txt
+$ sudo chgrp badhon file1.txt
+
 # To find what group my userid has
 $ groups
 
 # If we want to what group of the user is
 $ groups badhon
 
-# 
+#
 
 ```
+## (23) Groups Part 2
