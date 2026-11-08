@@ -183,7 +183,16 @@ $ sudo chmod 770 devops
 
 ```
 
-## (25) setuid
+## (25) setUID, Sticky Bit, setGID
+
+**Sticky Bit**
+No one can delete the content of the directory except the Owner
+ 
+
+**setGID**
+
+**setUID**
+
 
 setuid is a permissions bit flag, when the setuid bit flag is set, it allows the users to run an executable with the permissions of the file owner
 
