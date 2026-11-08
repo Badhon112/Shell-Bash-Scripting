@@ -84,6 +84,10 @@ There are 3 Important commands
 
 ## Linux group administration
 
+**_gpasswd_** : Group Administration : Used to manage group administrators and group membership
+
+**_usermod_** : System User Administration : Used to modify user account and group memberships
+
 1. _Check whether a group exists_
 
 ```bash
