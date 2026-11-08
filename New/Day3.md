@@ -166,9 +166,9 @@ $ getent group devops
 $ gpasswd -d biswas1 devops
 
 # Administrator User can also set group passwd
-$ gpasswd devops 
+$ gpasswd devops
 
-# Create a file in the root 
+# Create a file in the root
 $ sudo mkdir /srv/devops
 
 # Change the group permission to devops
@@ -178,5 +178,16 @@ $ sudo chgrp devops devops
 # Give only the permission for the group and the root user
 $ sudo chmod 770 devops
 
+
+![File ownership and group ownership](./UserFilePermission.md)
+
 ```
 
+## (25) setuid
+
+setuid is a permissions bit flag, when the setuid bit flag is set, it allows the users to run an executable with the permissions of the file owner
+
+```bash
+
+
+```
