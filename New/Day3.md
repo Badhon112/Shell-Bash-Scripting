@@ -187,12 +187,79 @@ $ sudo chmod 770 devops
 
 **Sticky Bit**
 No one can delete the content of the directory except the Owner
- 
+
+- Group - Linux
+- Members - Rohit, Virat and Saurabh
+- Directory - Dir
+- Group Permissions - read, write and execute
+- Every member of Linux Group can create and delete files wihtin directory DIR
+- Rohit can delete (intentionally/Unintentionally) files created by Virat and vice-versa
+
+```bash
+# Login as a privilege user
+$ su badhon
+
+# Add 3 User
+$ sudo adduser badhon1
+$ sudo adduser badhon1
+$ sudo adduser badhon1
+
+# Add 3 Password
+$ sudo passwd badhon1
+$ sudo passwd badhon2
+$ sudo passwd badhon3
+
+# Make a group
+$ sudo groupadd devops
+
+# Assign the user th this group
+$ sudo usermod -aG  devops badhon1
+$ sudo usermod -aG  devops badhon2
+$ sudo usermod -aG  devops badhon3
+
+# Create a folder for this group and group Permission to the group
+$ sudo mkdir /New/Folder
+$ sudo chgrp devops /New/Folder
+
+# check the Group and user has been assign or not
+$ cat /etc/group
+
+# Now set the permission to the group devops
+$ sudo chmod 770 /New/Folder
+
+# Now Try to login a group user, and check you can create a folder or not
+$ su badhon1
+$ touch file{1..4}.txt
+
+
+# Now to apply Sticky Bit Just apply
+$ su root
+$ chmod 1770 /New/Folder
+
+# Now the user can't delete other user file
+# Check
+$ su badhon1
+$ ls -alh
+-> drwxrwx--T.  2 User Group  73 Nov  9 07:01 newfolder
+$ rm badhon2.txt
+# Permission Deny
+```
 
 **setGID**
 
-**setUID**
+Group OwnerShip will be inherited to all the content of the directory
 
+```bash
+# Change the group Owner
+$ chmod g+s common
+
+# Change the group owner every time they created a file
+$ ls -alh
+-> -rw-r--r--. 1 badhon2 devops   0 Nov  9 07:16  badhon2.1.txt
+
+```
+
+**setUID**
 
 setuid is a permissions bit flag, when the setuid bit flag is set, it allows the users to run an executable with the permissions of the file owner
 
@@ -200,3 +267,105 @@ setuid is a permissions bit flag, when the setuid bit flag is set, it allows the
 
 
 ```
+
+## (25.1) setUID, Sticky Bit, setGID
+
+Normal Linux Permissions have 3 basic permission types:
+r = Read, w = Write, x = Execute
+
+_Linux also provides special permission bits._
+
+| Special Permission | Octal Value | Main Purpose                                                                                |
+| ------------------ | ----------- | ------------------------------------------------------------------------------------------- |
+| SUID               | 4           | Execute a program with the ,file owner effective UID                                        |
+| SGID               | 2           | Execute a program with the group effective GID; on directories, inherit the directory group |
+| Sticky bit         | 1           | Restrict deletion of directory entries                                                      |
+
+**SUID**
+
+SUID Stands for Set User ID.
+It is a special permission that can be applied to executable files.
+
+The Program can perform operations using the owner privileges, subject to the program's implementation and security checks.
+_Important_ SUID does not automatically make the user root. It only changes the effictive identity of that executable while it run.
+
+The Normal user can't modify the file . but can access the file in SUID
+
+The special permission for the user
+
+A file with SUID set always executes as the user who owns the file, regardless of the user executing the command.
+show as 's' or 'S'.
+
+How to set/unset Suid
+
+```bash
+$ chmod u+s <file_name>
+$ chmod 4770 <file_name>
+$ chmod u-s <file_name>
+$
+```
+
+```bash
+## Here to use SetUID
+## Lets say a admin or Privilege user create a file with some bash script. Now the admin or the privilege can execute the program file. Now for a normal user can he execute the file. Yes he can If he enable the setUid. SetUid enable every user to execute the file with the permission of the admin or Privilege user.
+# Example:
+
+# Switch to the root/admin/privilege user
+$ su badhon # badhon is a privilege user
+
+# Now Create a file named digital clock.
+$ vim digital_clock.sh
+
+#!/bin/bash
+Red=$'\e[1;31m'
+Green=$'\e[1;32m'
+Blue=$'\e[1;34m'
+Reset=$'\e[0m'
+
+
+while true
+do
+	# echo -e "${Blue}${date +%T}${Reset}"
+	echo -e "${Blue}$(date +%T)${Reset}"
+	sleep 1;
+	clear;
+done
+
+# Now make it executable. And run the command
+$ chmod 755 digital_clock.sh
+$ sh digital_clock.sh
+
+# Now set the permission to setUID
+$ chmod 4755 digital_clock.sh
+
+# Now it will be better to set this in alias
+$ alias Digital_Clock="sh /home/badhon/digital_clock.sh"
+
+# Now switch to the services user
+$ su badhon2
+$ alias Digital_Clock="sh /home/badhon/digital_clock.sh"
+$ Digital_Clock
+
+```
+
+**SGID**
+
+SGID stands for Set Group ID.
+
+It is similar to SUID, but instead of changing the effective user identity, it changes the effective group identity.
+
+---
+
+SetGID -sgid
+
+Group Ownership will be inherited to all the content of the directory
+
+E.g. :
+
+```bash
+$ chmod g+s DIR
+```
+
+---
+
+## (26) ACL
