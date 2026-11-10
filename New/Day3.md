@@ -468,8 +468,29 @@ $ sudo dnf install acl
 # Install on Debian/Ubuntu
 $ sudo apt install acl
 
+# Your File System must also support ACLs. Most modern filesystems (ext4, XFS, Btrfs) have ACL support enabled by default. You can verify this in your mount options:
+$ mount | grep acl
+
+# If ACLs are not enabled, you can enable them by adding acl to your mount options in /etc/fstab and remounting.
 
 
 ```
+
+**Adding a Read-Only user to a Website with setfacl**
+
+This is one of the most common use cases:granting a developer or auditor read-only access to website files without modifying group ownership. Lets say you have a website at /srv/www/example.com and want to give the user _sftpdev_ read-only access.
+
+```bash
+# The Simple Command
+$ setfacl --recursive --modify u:sftpdev:rX /srv/www/example.com
+$ setfacl -R -m u:sftdev:rX /srv/www/example.com
+
+# Lets break this down
+# --recursive (-R) : Apply to all files and subdirectories.
+# --modify (-m) : Add or modify an ACL entry
+# The uppercase X is crucial - it grants execute permission only on directories and files that already have execute permission
+```
+
+
 
 ---
