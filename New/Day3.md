@@ -307,7 +307,7 @@ $
 
 ```bash
 ## Here to use SetUID
-## Lets say a admin or Privilege user create a file with some bash script. Now the admin or the privilege can execute the program file. Now for a normal user can he execute the file. Yes he can If he enable the setUid. SetUid enable every user to execute the file with the permission of the admin or Privilege user.
+## Lets say a admin or Privilege user create a file with some bash script. Now the admin or the privilege can execute the program file. Now for a normal user can he execute the file. Yes he can If he enable the setUid. SetUid enable every user to execute the file with execute with the admin or Privilege user.
 # Example:
 
 # Switch to the root/admin/privilege user
@@ -368,4 +368,108 @@ $ chmod g+s DIR
 
 ---
 
-## (26) ACL
+## (26) ACL = Access Control List
+
+**setfacl/getfacl**
+
+- Applying fine-grained permissions on files and directories
+- getfacl and setfacl command
+
+- _Permission Flags_
+  - r = read
+  - w = write
+  - x = execute
+  - (-) = Permission is absent
+  - X = means execute is set on directories and not regular files (unless the files already has execute permission)
+
+- _View ACL_
+  - ls -l : shows minimal ACL
+  - (+) : means ACL is set
+  - _user_ : shows user ACL settings, which are same as standard user file settings, and not the group-owner settings.
+  - _group_ : shows current ACL mask settings, and not the group-owner settings.
+  - _other_ : shows other user ACL settings, which are same as standard other file settings
+
+```bash
+# Command
+$ getfacl <File_Name>
+
+$ getfacl file1.txt
+
+
+# Set ACL
+# -m : to add or modify ACL
+$ setfacl -m u:user_name:user_permissions filename
+$ setfacl -m u:badhon1:--- file1.txt
+$ setfacl -m g:group_name:group_permission folder_name/
+
+```
+
+## (27) ACL = Advanced Permission - recursive, default, deleting
+
+- _What is ACL?_
+  - Access control List (ACL) provides an additional, more flexible permission mechanism for file systems, it is designed to assist with UNIX file permissions, ACL allows you to give permissions for any user or group to any disc resources.
+
+- _Use of ACL_
+  - Think of a scenario is which a particular user is not a member of group created by you still you want to give some read or write access, how can you do it without making user a member of group, here comes is picture Access Control Lists, ACL helps us to do this trick
+- Basically ACLs are used to make a flexible permission mechanism in Linux
+- From Linux man pages, ACls are used to define more fine-grained discretionary access right for files and directories
+- Commands to assign and remove ACL permissions are:
+  - _setfacl and getfacl_
+
+List of commands for setting up ACL:
+
+```bash
+# 1. To add permission for user
+$ setfacl -m u:user:rwx /path/to/file
+
+# 2. To add permissions for q group
+$ setfacl -m g:group:rw /path/to/file
+
+# 3. To allow all files or directories to inherit ACL entries from the directory it is wi thin
+$ setfacl -Rm "entry" /path/to/dir
+
+# 4. To remove a specific entry
+$ setfacl -x u:user /path/to/file  # (For a specific user)
+
+# 5. To remove all entries
+$ setfacl -b path/to/file # (For al users)
+
+# Note:
+# As you assign the ACL permission to a file/directory it adds + sign at the end of the permission
+# Setting w  permission with ACL does not allow to remove a file
+
+# Step 1: Set file permission to users on a specific file
+$ setfacl -m u:kali:rw- file.txt
+
+# Step 2: Set the permission to user for multiple files and directory
+$ setfacl -m u:kali:rx file1.txt file2.txt d1
+
+# Step 3: Deny all permission on a Specific directory
+$ setfacl -x u:kali d1
+
+# step 4: Display the file access control List
+$ getfacl -a f2.txt
+
+# Step 5 : Display the default access control list
+$ getfacl -d f2.txt
+
+#
+```
+
+## New ACL
+
+```bash
+# Install ACL support on Linux
+$ Check if ACL is installed
+
+# Install on RHEL/Centos/Rocky Linux
+$ sudo dnf install acl
+
+# Install on Debian/Ubuntu
+$ sudo apt install acl
+
+
+
+```
+
+---
