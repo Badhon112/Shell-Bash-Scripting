@@ -459,3 +459,19 @@ $ getfacl -d f2.txt
 # ACL
 
 ![Access Control List](./Day3ACL.md)
+
+---
+
+## (29) File Attribute
+
+```bash
+# File Attribute
+$ man chattr
+
+# What type of file system we are using
+$ cat /etc/fstab
+
+# 
+
+
+```

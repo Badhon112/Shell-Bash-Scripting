@@ -1,5 +1,8 @@
 # ACL
 
+Linux file permissions have always been a cornerstone of system security, but the traditional owner-group-other model often falls short in complex multi-user environments. Enter setfacl - the powerful Access Control List utility that transforms how you manage file permissions on linux server. Whether you need to grant a developer read-only access to production files or implement fine-grained security policies.
+
+
 ```bash
 # Install ACL support on Linux
 $ Check if ACL is installed
@@ -365,9 +368,10 @@ $ setfacl --restore=backup.acl
 
 # Using File Name Set the ACL
 
-$ Acl.txt
-user:badhon:rX
-group:devops:rX
+$ cat > Acl.txt << EOF
+> user:badhon:rX
+> group:devops:rX
+EOF
 
 $ setfacl -M Acl.txt file_name
 
