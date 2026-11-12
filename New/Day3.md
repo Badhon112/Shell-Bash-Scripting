@@ -471,7 +471,59 @@ $ man chattr
 # What type of file system we are using
 $ cat /etc/fstab
 
-# 
+# The command Syntax:
+# i = Immutable - cann't modify, delete, or rename
+$ chattr [operator][attribute] filename
 
+# Attribute == Meaning
+# i = Immutable - can't modify, delete, or rename
+# a = Append only - can only append data
+# e = Extents - File using extents (usually default)
 
+# Create a file with some attribute
+$ echo "This is important dat and should not be changed" > importantfile.txt
+
+# Check the attribute
+$ lsattr importantfile.txt
+
+# Changed the file default Attribute to immutable attribute
+$ sudo chattr +i importantfile.txt
+
+# Now try to delete and try to add some file
+$ echo "Update text" >> importantfile.txt
+$ rm importantfile.txt
+
+# Changed the file immutable Attribute to non_immutable attribute
+$ sudo chattr -i importantfile.txt
+
+# Change the file attribute to append attribute
+# This will append the content we want to write but it will not changed what there inside the file
+$ sudo chattr +a importantfile.txt
+
+# Check the file attribute
+$ lsattr importantfile.txt
+
+# Try to change the File
+
+# It will try to deleted the previous content and  writes a new content, It will Not work
+$ echo "Update Content" > importantfile.txt
+
+# If the file already exests, its previous content remains, and add new content at the end of the file, It will Work
+$ echo "Update Content" >> importantfile.txt
+
+# File Attribute can apply in the directory
+$ mkdir Chattertest
+$ touch Chattertest/Chattertestfile{1..3}.txt
+$ sudo chatter -R +i Chattertest/
+$ lsattr /Chattertest
 ```
+
+**Important Difference**
+
+| Command | Purpose                 |
+| ------- | ----------------------- |
+| chmod   | Change File Permissions |
+| chown   | Change File Ownership   |
+| chgrp   | Change group ownership  |
+| chattr  | Change File Attribute   |
+| lsattr  | View file Attributes    |
