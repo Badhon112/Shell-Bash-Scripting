@@ -287,7 +287,7 @@ SUID Stands for Set User ID.
 It is a special permission that can be applied to executable files.
 
 The Program can perform operations using the owner privileges, subject to the program's implementation and security checks.
-_Important_ SUID does not automatically make the user root. It only changes the effictive identity of that executable while it run.
+_Important_ SUID does not automatically make the user root. It only changes the effective identity of that executable while it run.
 
 The Normal user can't modify the file . but can access the file in SUID
 
