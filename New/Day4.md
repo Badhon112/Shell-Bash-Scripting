@@ -156,7 +156,7 @@ $ stat --printf="\n=File :%n\nWas last accessed on: %x\nHasa group of %G\nAns Pe
 
 _wc_ : wc stand for word count
 _sort_ : sort stand for sorting the character for the wordList.txt
-_uniq_ :  
+_uniq_ :
 
 ```bash
 $ wc file1.txt
@@ -192,4 +192,15 @@ $ sort file1.txt | uniq -d
 $ sort file1.txt | uniq -d -i
 $ sort file1.txt | uniq -Di
 
+# Sort the file base on the key column
+$ sort -nk2 file1.csv
 ```
+
+## (34) Find - pt1,pt2
+
+```bash
+# To find out the list name file 
+$ find . -name '*list*'
+```
+
+## wc⁠, ⁠sort⁠, ⁠grep⁠, ⁠sed⁠, ⁠awk⁠, ⁠xargs⁠
