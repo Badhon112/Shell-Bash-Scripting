@@ -211,4 +211,10 @@ $ rsync -v Rsync1/file1.txt Rsync1/
 
 # To sync both folder
 $ rsync -Rv Rsync1 Rsync2
+
+# To skip the .file 
+$ rsync -vr Src/* Dst
+
+# And Including the hidden file
+$ rsync -vr Srv/ Dst
 ```
