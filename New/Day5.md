@@ -212,9 +212,112 @@ $ rsync -v Rsync1/file1.txt Rsync1/
 # To sync both folder
 $ rsync -Rv Rsync1 Rsync2
 
-# To skip the .file 
+# To skip the .file
 $ rsync -vr Src/* Dst
 
 # And Including the hidden file
 $ rsync -vr Srv/ Dst
+
+# Sync 2 file
+$ rsync -av Src/ Dst
+```
+
+## (52) rsync part 2
+
+```bash
+# rsync Syntax and key Options
+$ rsync [option] source destination
+
+# Core Option Flag Explained
+# -a: archive = Archive mode. Recursively copies directories and preserves permissions.
+# -v : verbose = Shows each file being transferred. Add -vv for even more detail.
+# -z : Compress = Compresses data during transfer. Saves bandwidth on slow connections.
+# -P : Combines -progress and -partial.
+# -delete : Deletes files in the destination that no longer exist in the source.
+
+# Sync the source and destination directory
+$ rsync -av Src/ Dst --dry-run
+
+# To truly Sync Src and Dst file
+$ rsync -av Src/ Dst --delete --dry-run
+
+#======================
+
+# Using -n for Dry Run Testing
+# The dry run flag (-n or --dry-run) simulates the transfer without actually moving anything
+$ rsync -avn source/ destination/
+
+# Monitoring Progress with -progress
+$ rsync -av --progress source/ destination/
+
+# Sync Files Locally
+$ rsync -av Src/ Dst/
+
+# Sync file from one computer to another
+# Push Code
+$ rsync -av  Src/ user_name@<ip>:/home/user_name # It will ask for password
+
+# Pull Code
+$ rsync -av user_name@<ip>:~/file1.txt .
+
+```
+
+## (53) Cron pt1
+
+- **What is Cron Job?**
+  A cron job is a scheduled task that allows you to run scripts or commands at specified intervals
+
+- **Why use Cron Jobs**
+  Cron jobs automate repetitive tasks, ensuring they run at scheduled times without manual intervention.
+  Backing up files, Running system maintenance, or sending email reports.
+
+- **How does Cron Work?**
+  Cron uses a daemon (a background process) called cron to execute schedules tasks.
+  The configuration for these tasks is stored in a file called a crontab
+  Name of the service is : crond
+
+-
+
+```bash
+# Check the Cron is in active status or not | install cron
+$ sudo dnf install cronie -y
+$ systemctl status cron
+
+# Managing Crontab Entries
+
+# Command to edit crontab:
+$ crontab -e
+
+# How to view your current cron jobs:
+$ crontab -l
+
+# Deleting cron jobs with
+$ crontab -r ## Warning: It will remove all the jobs
+
+# Managing Crontab Entries
+$ crontab -e
+
+# Basic Format of a Cron Job
+$ * * * * * /usr/bin/python3 /path/to/task/py
+
+# Explanation of the syntax:
+minute hour day(month) month day(week) command.
+
+```
+
+## (54) Anacrontab
+
+- _What is Anacron?_
+  - Anacron is a linux utility executes scheduled tasks periodically, even if the system is not running continuously.
+  - Anacron is suited for systems that do not run 24/7
+
+- _Check anacron is present or not using_
+  - /etc/anacrontab
+  - rpm -qa | grep anacron (Redhat Centos)
+  - dpkg -l | grep anacron (ubuntu)
+- yum install anacron
+- apt install anacron
+
+```bash
+#
 ```
