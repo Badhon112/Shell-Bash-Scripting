@@ -319,5 +319,21 @@ minute hour day(month) month day(week) command.
 - apt install anacron
 
 ```bash
-#
+# Anacron uses a configuration file, typically located at /etc/anacrontab, to define tasks, unlike Cron it does not work with minute-level precision. Instead, it operates based on days and ensures that missed tasks run as soon as the system power on
+
+# The syntax for an anacron entry is as follows:
+# period    delay   job-identifier    command
+
+# period : Frequency of task execution in days.
+# delay : Time in minutes to wait before executing the task after system startup
+# job-identifier : A unique label to identify the task
+# command: The script or command to execute
+
+
+# To run a daily backup script with a delay of 15 minutes after system startup, you would include the following line in /etc/anacrontab
+
+$ vim /etc/anacrontab
+1     15    daily_backup    /path/to/backup.sh
+
+
 ```
