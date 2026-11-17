@@ -471,6 +471,23 @@ $ sudo systemctl status script4sysd.timer
 
 ```
 
+Add persistent To your services.timer
+The service executes shortly after boot.
+
+```bash
+$ sudo systemctl edit script4sysd.timer --full
+# On Timer add Persistent=true
+Persistent=true
+
+```
+
+Check the timer
+```bash
+$ systemctl list-timers
+```
+
+---
+
 ## Important
 
 You have to go /etc/systemd/system
@@ -498,6 +515,7 @@ Description=This is a timer file
 [Timer]
 Unit=secript4sysd.service
 OnCalendar=DayName *-*-* 14:30:0
+Persistent=true
 
 [Install]
 WantedBy=timers.target
@@ -556,6 +574,7 @@ Description=This is a Backup Service
 ExecStart=/home/user/backup_script.sh
 User=user_name
 
+
 EOF
 
 # After that check and start the service manual not time manner
@@ -590,6 +609,10 @@ Description=This is the time file for backup.service
 [Timer]
 Unit=backup.service
 OnCalendar=*-*-* 15:10:0
+Persistent=true
+
+[Install]
+WantedBy=timers.target
 
 EOF
 

@@ -1,0 +1,8 @@
+[Unit]
+Description=This is the service for backup
+
+[Service]
+ExecStart=./home/ec2-user/Backup.sh
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,10 @@
+[Unit]
+Description=This is the timer for the backup.service file
+
+[Time]
+Unit=backup.service
+onCalendar=*-*-* 12:00:0
+Persistent=true
+
+[Install]
+WantedBy=timers.target
