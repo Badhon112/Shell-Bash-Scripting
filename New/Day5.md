@@ -481,7 +481,8 @@ Persistent=true
 
 ```
 
-Check the timer
+**Check the timer**
+
 ```bash
 $ systemctl list-timers
 ```

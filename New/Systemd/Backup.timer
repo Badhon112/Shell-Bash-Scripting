@@ -5,6 +5,7 @@ Description=This is the timer for the backup.service file
 Unit=backup.service
 onCalendar=*-*-* 12:00:0
 Persistent=true
+onBootSec=7min # It will execute after 7 minute after the initial boot up
 
 [Install]
 WantedBy=timers.target
