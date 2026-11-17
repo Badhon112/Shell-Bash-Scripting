@@ -337,3 +337,265 @@ $ vim /etc/anacrontab
 
 
 ```
+
+## (56) AT
+
+If we run anything in future just one time then at command is used for atq
+
+```bash
+# atq = query at job
+$ sudo apt install at
+
+# Start atd
+$ systemctl start/enable atd
+
+# Stop the atd
+$ systemctl status atd
+
+# check there is any atd schedule is running or not
+$ atq
+
+# TO run a at command
+$ at now +5 minutes
+> mkdir /home/ec2-user/at
+> touch /home/ec2/user/at/atfile{1..10}.txt
+> ctrl+d
+
+# now +1 minute
+# now +1 hour
+# now +1 day
+# now +1 year
+
+# the +1 can be any positive integer number of days, it does not have to be 1
+
+```
+
+## (57) Systemd.timer pt1
+
+```bash
+# system d timer schedule jobs like cron and anacron
+# There are 3 things are needed to schedule a system D timer those 3 thing are
+# 1. The script you want to run on the schedule
+# 2. A systemd service to run this script
+# 3. A system timer to start that schedule systemd services
+
+# ===========================================
+
+# 1. Create a script
+$ vim script4sysd.sh
+  -> ![Part 1](./Script/script4sysd.sh)
+
+# ===========================================
+
+# 2. The service to run out script
+# Systemd services are created in the /etc/systemd/system
+# We need to be a prevailed user
+$ cd /etc/systemd/system
+$ sudo vim script4sysd.service
+  -> [Service]
+  -> ExecStart=/home/ec2-user/script4sysd.sh
+
+# Now Reload to systemctl
+$ sudo systemctl daemon-reload
+
+# Now start the service
+$ sudo systemctl start script4sysd.service
+
+# To stop the services
+$ sudo systemctl stop script4sysd.service
+
+# TO check the log
+$ tail -f /var/log/syslog
+# OR
+$ sudo journalctl -u script4sysd -f
+
+# update the services file
+$ sudo systemctl edit script4sysd --full
+
+# And the full version of script4sysd.service
+[Unit]
+Description=This service will run the script /home/ec2-user/script4sysd.sh
+
+[Service]
+ExecStart=/home/ec2-user/script4sysd.sh
+User=ec2-user
+
+[Install]
+WantedBy=multi-user.target
+
+# =========== IMPORTANT ===========
+
+# Now Reload, restart, enable start
+$ sudo systemctl daemon-reload
+$ sudo systemctl restart script4sysd
+$ sudo systemctl enable script4sysd
+$ sudo systemctl start script4sysd
+
+# ===========================================
+# 3.
+
+```
+
+## (58) Systemd.timer pt2
+
+```bash
+
+# Systemd Timer WHen to run this services
+$ cd /etc/systemd/system
+
+# Create a timer Folder
+$ sudo vim script4sysd.timer
+[Unit]
+Description=Timer to tun script4sysd.service
+
+[Timer]
+Unit=script4sysd.service
+OnCalendar=*-*-* 14:15:0
+
+
+# OnCalendar Format
+Day of the week Year-Month-Day Hours:minutes:Seconds
+
+# To run a systemd.timer on Mondays at 1:15 PM
+OnCalendar=Mon *-*-* 13:15:00
+
+# To run a systemd.timer on:
+The first day of the month at 4:00 am
+OnCalendar=*-*-1 4:00:00
+
+# Now Reload, restart, enable start
+$ sudo systemctl daemon-reload
+$ sudo systemctl restart script4sysd.timer
+$ sudo systemctl enable script4sysd.timer
+$ sudo systemctl status script4sysd.timer
+
+```
+
+## Important
+
+You have to go /etc/systemd/system
+
+On .service file
+
+```bash
+[Unit]
+Description=This is services file
+
+[Service]
+ExecStart=/home/ec2-user/script4sysd.sh
+User=user_name
+
+[Install]
+WantedBy=multi-user.target
+```
+
+On .timer file
+
+```bash
+[Unit]
+Description=This is a timer file
+
+[Timer]
+Unit=secript4sysd.service
+OnCalendar=DayName *-*-* 14:30:0
+
+[Install]
+WantedBy=timers.target
+```
+
+After that
+
+```bash
+$ sudo systemctl daemon-reload
+
+$ sudo systemctl restart service_name.service
+$ sudo systemctl restart timer_name.timer
+
+$ sudo systemctl start service_name.service
+$ sudo systemctl start timer_name.timer
+
+$ sudo systemctl status service_name.service
+$ sudo systemctl status timer_name.timer
+```
+
+---
+
+## Full Flow
+
+I Just Want to backup service.
+Now first we need to create a script of backup file
+
+1. **Create a script file**
+
+backup_script in /home/user/backup_script.sh
+vim backup_script.sh
+
+```bash
+#!/bin/bash
+cd /home/ec2-user
+mkdir backup
+cd backup
+touch backup_at.$(date +"%Y-%m-%d_%I:%M:%S").txt
+```
+
+2. **Create a service file**
+
+```bash
+# First make the script executable
+$ sudo chmod 755  backup_script
+
+# To create a service file you need to be root user
+$ sudo su -
+$ cd /etc/systemd/system
+$ cat > backup.service << EOF
+
+[Unit]
+Description=This is a Backup Service
+
+[Service]
+ExecStart=/home/user/backup_script.sh
+User=user_name
+
+EOF
+
+# After that check and start the service manual not time manner
+$ sudo systemctl daemon-reload
+$ sudo systemctl restart backup.service
+$ sudo systemctl enable backup.service
+$ sudo systemctl start backup.service
+
+# To edit the backup.service file
+$ sudo systemctl edit backup.service --full
+
+# You can add [install] like
+[Install]
+WantedBy=multi-user.target
+
+# After changed the service file. Restart and reload the file
+$ sudo systemctl restart backup.service
+$ sudo systemctl enable backup.service
+$ sudo systemctl start backup.service
+
+```
+
+3. Create a timer file
+
+```bash
+# Create a timer file
+$ cat > backup.timer << EOF
+
+[Unit]
+Description=This is the time file for backup.service
+
+[Timer]
+Unit=backup.service
+OnCalendar=*-*-* 15:10:0
+
+EOF
+
+# Now reload and restart
+$ sudo systemctl daemon-reload
+$ sudo systemctl restart backup.timer
+$ sudo systemctl enable backup.timer
+$ sudo systemctl status backup.timer # It will tell you when the services will run
+```
