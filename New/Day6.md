@@ -151,3 +151,53 @@ $ jobs
 $ jobs -l
 
 ```
+
+## (67) Tmux
+
+- Tmux is stand for terminal multiplexer
+
+```bash
+# To start the tmux
+$ tmux
+
+# Check tmux is installed or not
+$ which tmux
+
+# Install tmux
+$ sudo yum install tmux -y
+
+
+# TO detach from the tmux
+# b stand for bravo key
+$ ctrl + b
+$ d
+
+# To see the list of session 
+$ tmux list-sessions
+$ tmux ls
+
+# To re attach the session
+$ tmux attach 
+
+# to rename a session
+$ tmux rename-session -t 0 top 
+
+# To attach a specific tmux session
+$ tmux ls
+$ tmux attach -t 1
+
+# To rename a tmux session inside from teh tmux
+$ ctrl + b
+$ $
+$ enter
+
+# To delete or Kill a session
+$ tmux kill-session -t 1
+
+# To delete or kill all session
+$ tmux kill-server
+
+# To create and add a new name ot the tmux
+$ tmux new -t longrunningjob
+
+```
