@@ -59,8 +59,36 @@ $ usset env_name
 - **There are 2 shell**
   - _Interactive login shell_
     - $ whoami
-  - _Interactive non-login shell_ 
-    - When you try to login 
+  - _Interactive non-login shell_
+    - When you try to login
+
+## (75) history pt1
+
 ```bash
+
+# To see the history
+$ history
+
+# To clear out history
+$ history -c
+
+# IT will create a .bash_history
+$ history -w
+```
+
+## (77) Custom Prompt
+
+```bash
+# The command prompt is store in the env variable ps1
+$ echo $PS1
+
+# Changed the PS1 Value it will changed the terminal prompt
+$ PS1="=> "
+
+# Change the terminal Prompt
+$ PS1="\@"
+
+
+# https://ezprompt.net/
 
 ```
